@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080c16">
+<meta name="description" content="Névoa: navegação com foco em minimizar rastros locais.">
+<title>Névoa — navegue leve</title>
+<style>
+:root{color-scheme:dark;--bg:#080c16;--panel:#11192a;--line:#253149;--cyan:#50dceb;--muted:#9ba9bf;--white:#eef4fc}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% 0%,#14253a 0,transparent 55%),var(--bg);color:var(--white);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
+main{width:min(980px,92%);margin:auto}.nav{height:78px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff12}.logo{font-weight:850;letter-spacing:.16em;color:var(--cyan)}.pill{font-size:12px;border:1px solid #50dceb55;border-radius:99px;padding:8px 12px;color:var(--cyan)}
+.hero{text-align:center;padding:88px 0 55px}.orb{width:70px;height:70px;margin:0 auto 22px;border:1px solid #50dceb88;border-radius:50%;display:grid;place-items:center;box-shadow:0 0 50px #50dceb1c;font-size:30px;color:var(--cyan)}
+h1{font-size:clamp(42px,8vw,76px);letter-spacing:-.055em;line-height:1.02;margin:0 0 20px}.accent{color:var(--cyan)}.hero p{max-width:620px;margin:0 auto;color:var(--muted);font-size:17px;line-height:1.7}
+.ctas{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:30px}.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 18px;border-radius:12px;text-decoration:none;font-weight:750;border:1px solid var(--line);color:var(--white);background:var(--panel)}.primary{background:var(--cyan);color:#06111b;border-color:var(--cyan)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:35px 0 58px}.card{background:linear-gradient(145deg,#121c2e,#0c1321);border:1px solid var(--line);border-radius:18px;padding:22px}.icon{font-size:22px}.card h2{font-size:16px;margin:14px 0 8px}.card p{font-size:14px;color:var(--muted);line-height:1.6;margin:0}.notice{border:1px solid #e7b75b44;background:#e7b75b0a;border-radius:14px;padding:18px 20px;color:#d7c7a3;font-size:13px;line-height:1.7;margin-bottom:55px}.notice strong{color:#f1d59a}footer{padding:25px 0 38px;border-top:1px solid #ffffff12;color:#8190a8;font-size:12px;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+@media(max-width:700px){.hero{padding:65px 0 30px}.grid{grid-template-columns:1fr}.card{padding:19px}.hero p{font-size:15px}}
+</style>
+</head>
+<body><main>
+<header class="nav"><div class="logo">◉ NÉVOA</div><span class="pill">PRIVACIDADE POR DESIGN</span></header>
+<section class="hero"><div class="orb">◉</div><h1>Navegue leve.<br><span class="accent">Deixe menos rastros.</span></h1>
+<p>Um navegador experimental para Android, construído com foco em reduzir o armazenamento local da sessão. Sem conta, sem perfil e sem histórico persistente intencional do aplicativo.</p>
+<div class="ctas"><a class="btn primary" href="#recursos">Conhecer o projeto ↗</a><a class="btn" href="https://github.com/VNSANTS/nevoa-browser">Código no GitHub</a></div></section>
+<section id="recursos" class="grid">
+<article class="card"><div class="icon">⌁</div><h2>Sessão efêmera</h2><p>O app limpa histórico, cache e cookies ao encerrar ou limpar a sessão. Armazenamento web persistente fica desativado.</p></article>
+<article class="card"><div class="icon">◇</div><h2>Sem perfil pessoal</h2><p>Não exige cadastro e não possui backend próprio, analytics ou conta de usuário nesta versão.</p></article>
+<article class="card"><div class="icon">↗</div><h2>Projeto aberto</h2><p>Estrutura preparada para GitHub Pages e compilação de APK por GitHub Actions. Audite o código antes de confiar nele.</p></article>
+</section>
+<div class="notice"><strong>Privacidade não é invisibilidade.</strong> O Névoa não promete anonimato absoluto: sites ainda podem ver seu IP e características do navegador; redes, operadoras e serviços podem registrar metadados. O motor usado é o Android System WebView. Não use esta versão como substituto de Tor ou de uma VPN quando precisar deles.</div>
+<footer><span>© Névoa · projeto experimental</span><span>Sem promessa de anonimato absoluto.</span></footer>
+</main></body></html>
