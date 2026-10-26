@@ -3,10 +3,14 @@ package com.nevoa.browser
 import android.app.Activity
 import android.os.Bundle
 import android.graphics.Color
+import android.os.Build
 import android.view.Gravity
+import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.text.InputType
 import android.webkit.CookieManager
 import android.webkit.WebChromeClient
+import android.webkit.WebStorage
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
@@ -24,6 +28,7 @@ class MainActivity : Activity() {
     private val panel = Color.rgb(17, 25, 42)
     private val cyan = Color.rgb(80, 220, 235)
     private val white = Color.rgb(235, 242, 250)
+    private var isClearing = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +36,9 @@ class MainActivity : Activity() {
         window.navigationBarColor = bg
         buildUi()
         configurePrivateWebView()
-        web.loadUrl("https://search.brave.com/")
+        clearSiteData {
+            web.loadUrl("https://search.brave.com/")
+        }
     }
 
     private fun buildUi() {
@@ -39,6 +46,7 @@ class MainActivity : Activity() {
             orientation = LinearLayout.VERTICAL
             setBackgroundColor(bg)
             setPadding(12, 10, 12, 6)
+            disableAutofill(this)
         }
         val brand = TextView(this).apply {
             text = "◉  NÉVOA"
@@ -54,9 +62,11 @@ class MainActivity : Activity() {
             setTextColor(white)
             textSize = 14f
             singleLine = true
+            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS or InputType.TYPE_TEXT_VARIATION_URI
             imeOptions = EditorInfo.IME_ACTION_GO
             setPadding(12, 3, 12, 3)
             setBackgroundColor(panel)
+            disableAutofill(this)
         }
         val go = Button(this).apply {
             text = "IR"
@@ -74,12 +84,13 @@ class MainActivity : Activity() {
         controls.addView(forward, LinearLayout.LayoutParams(0, 42, 1f))
         controls.addView(clear, LinearLayout.LayoutParams(0, 42, 1.35f))
         status = TextView(this).apply {
-            text = "SESSÃO EFÊMERA • sem histórico local"
+            text = "MODO PRIVADO • sem histórico ou cookies persistentes"
             textSize = 10f
             setTextColor(cyan)
             setPadding(5, 4, 5, 7)
         }
         web = WebView(this)
+        disableAutofill(web)
         root.addView(brand)
         root.addView(row)
         root.addView(controls)
@@ -93,6 +104,12 @@ class MainActivity : Activity() {
         }
     }
 
+    private fun disableAutofill(view: View) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            view.importantForAutofill = View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS
+        }
+    }
+
     private fun smallButton(label: String, action: () -> Unit) = Button(this).apply {
         text = label
         textSize = 10f
@@ -102,14 +119,17 @@ class MainActivity : Activity() {
     }
 
     private fun configurePrivateWebView() {
-        CookieManager.getInstance().setAcceptCookie(false)
+        val cookies = CookieManager.getInstance()
+        cookies.setAcceptCookie(false)
         web.apply {
             setBackgroundColor(Color.WHITE)
             webViewClient = object : WebViewClient() {
                 override fun onPageFinished(view: WebView?, url: String?) {
                     super.onPageFinished(view, url)
-                    address.setText(url ?: "")
-                    status.text = "SESSÃO EFÊMERA • dados locais serão limpos ao sair"
+                    if (!isFinishing && !isClearing) {
+                        address.setText(url ?: "")
+                        status.text = "MODO PRIVADO • histórico e dados locais temporários"
+                    }
                 }
             }
             webChromeClient = WebChromeClient()
@@ -132,6 +152,9 @@ class MainActivity : Activity() {
             clearHistory()
             clearFormData()
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            CookieManager.getInstance().setAcceptThirdPartyCookies(web, false)
+        }
     }
 
     private fun navigate() {
@@ -148,26 +171,33 @@ class MainActivity : Activity() {
         web.loadUrl(text)
     }
 
-    private fun clearSession() {
+    private fun clearSiteData(after: (() -> Unit)? = null) {
+        isClearing = true
         web.stopLoading()
         web.clearHistory()
         web.clearCache(true)
         web.clearFormData()
-        CookieManager.getInstance().removeAllCookies { }
-        CookieManager.getInstance().flush()
-        web.loadUrl("https://search.brave.com/")
-        status.text = "SESSÃO LIMPA • nova navegação iniciada"
+        WebStorage.getInstance().deleteAllData()
+        CookieManager.getInstance().removeAllCookies {
+            CookieManager.getInstance().flush()
+            isClearing = false
+            after?.invoke()
+        }
+    }
+
+    private fun clearSession() {
+        clearSiteData {
+            address.setText("")
+            status.text = "SESSÃO LIMPA • nova navegação privada"
+            web.loadUrl("https://search.brave.com/")
+        }
     }
 
     override fun onPause() {
-        super.onPause()
         if (this::web.isInitialized) {
-            web.stopLoading()
-            web.clearHistory()
-            web.clearCache(true)
-            CookieManager.getInstance().removeAllCookies { }
-            CookieManager.getInstance().flush()
+            clearSiteData()
         }
+        super.onPause()
     }
 
     override fun onDestroy() {
@@ -177,7 +207,8 @@ class MainActivity : Activity() {
             web.clearHistory()
             web.clearCache(true)
             web.clearFormData()
-            CookieManager.getInstance().removeAllCookies { }
+            WebStorage.getInstance().deleteAllData()
+            CookieManager.getInstance().removeAllCookies { CookieManager.getInstance().flush() }
             web.removeAllViews()
             web.destroy()
         }
