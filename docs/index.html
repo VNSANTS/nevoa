@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#080c16">
-<meta name="description" content="Névoa — navegue e pesquise com o Brave Search.">
+<meta name="description" content="Névoa — página inicial de pesquisa. Não é um perfil de navegador independente.">
 <title>Névoa</title>
 <style>
 :root{color-scheme:dark;--bg:#080c16;--panel:#11192a;--panel2:#0d1423;--line:#26334b;--cyan:#50dceb;--muted:#91a0b8;--white:#eef4fc}
@@ -39,21 +39,21 @@ footer a{color:#8fa2bd;text-decoration:none}
 </head>
 <body>
 <main>
-<header><div class="logo">◉ NÉVOA</div><span class="status">SESSÃO LEVE</span></header>
+<header><div class="logo">◉ NÉVOA</div><span class="status">PÁGINA INICIAL</span></header>
 <section class="hero">
 <div class="orb" aria-hidden="true">◉</div>
 <h1>O que vamos<br><span class="accent">encontrar?</span></h1>
-<p class="subtitle">Pesquise na web ou digite um endereço.</p>
-<form class="search" id="searchForm" action="https://search.brave.com/search" method="get">
+<p class="subtitle">Pesquise na web ou digite um endereço.</p>\n<p style="max-width:600px;margin:-16px 0 22px;color:#91a0b8;font-size:12px;line-height:1.6">Esta versão web usa o perfil do navegador em que foi aberta. Para isolamento de sessão, use o APK NÉVOA.</p>
+<form class="search" id="searchForm" action="https://search.brave.com/search" method="get" referrerpolicy="no-referrer">
 <input id="query" name="q" type="text" placeholder="Pesquisar ou digitar endereço..." autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Pesquisar ou digitar endereço" required>
 <button type="submit">Buscar ↗</button>
 </form>
 <p class="engine">Busca com <strong>Brave Search</strong></p>
 <nav class="shortcuts" aria-label="Atalhos">
-<a class="shortcut" href="https://search.brave.com/"><span class="glyph">B</span><span>Brave Search</span></a>
-<a class="shortcut" href="https://www.wikipedia.org/"><span class="glyph">W</span><span>Wikipedia</span></a>
-<a class="shortcut" href="https://www.youtube.com/"><span class="glyph">▶</span><span>YouTube</span></a>
-<a class="shortcut" href="https://github.com/"><span class="glyph">⌘</span><span>GitHub</span></a>
+<a class="shortcut" href="https://search.brave.com/" rel="noreferrer"><span class="glyph">B</span><span>Brave Search</span></a>
+<a class="shortcut" href="https://www.wikipedia.org/" rel="noreferrer"><span class="glyph">W</span><span>Wikipedia</span></a>
+<a class="shortcut" href="https://www.youtube.com/" rel="noreferrer"><span class="glyph">▶</span><span>YouTube</span></a>
+<a class="shortcut" href="https://github.com/" rel="noreferrer"><span class="glyph">⌘</span><span>GitHub</span></a>
 </nav>
 </section>
 <footer><span>© Névoa</span><a href="https://github.com/VNSANTS/nevoa">Código aberto no GitHub</a></footer>
