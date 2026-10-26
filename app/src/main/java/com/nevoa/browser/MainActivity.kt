@@ -140,7 +140,7 @@ class MainActivity : Activity() {
         val looksLikeUrl = text.contains(".") && !text.contains(" ")
         if (looksLikeUrl && !text.startsWith("http://") && !text.startsWith("https://")) text = "https://$text"
         if (!text.startsWith("http://") && !text.startsWith("https://")) {
-            text = "https://search.brave.com/?q=" + java.net.URLEncoder.encode(text, "UTF-8")
+            text = "https://search.brave.com/search?q=" + java.net.URLEncoder.encode(text, "UTF-8")
         }
         if (text.startsWith("http://")) {
             Toast.makeText(this, "Use HTTPS para maior segurança.", Toast.LENGTH_SHORT).show()
