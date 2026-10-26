@@ -1,31 +1,75 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#080c16">
-<meta name="description" content="Névoa: navegação com foco em minimizar rastros locais.">
-<title>Névoa — navegue leve</title>
+<meta name="description" content="Névoa — navegue e pesquise com o Brave Search.">
+<title>Névoa</title>
 <style>
-:root{color-scheme:dark;--bg:#080c16;--panel:#11192a;--line:#253149;--cyan:#50dceb;--muted:#9ba9bf;--white:#eef4fc}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% 0%,#14253a 0,transparent 55%),var(--bg);color:var(--white);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
-main{width:min(980px,92%);margin:auto}.nav{height:78px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff12}.logo{font-weight:850;letter-spacing:.16em;color:var(--cyan)}.pill{font-size:12px;border:1px solid #50dceb55;border-radius:99px;padding:8px 12px;color:var(--cyan)}
-.hero{text-align:center;padding:88px 0 55px}.orb{width:70px;height:70px;margin:0 auto 22px;border:1px solid #50dceb88;border-radius:50%;display:grid;place-items:center;box-shadow:0 0 50px #50dceb1c;font-size:30px;color:var(--cyan)}
-h1{font-size:clamp(42px,8vw,76px);letter-spacing:-.055em;line-height:1.02;margin:0 0 20px}.accent{color:var(--cyan)}.hero p{max-width:620px;margin:0 auto;color:var(--muted);font-size:17px;line-height:1.7}
-.ctas{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:30px}.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 18px;border-radius:12px;text-decoration:none;font-weight:750;border:1px solid var(--line);color:var(--white);background:var(--panel)}.primary{background:var(--cyan);color:#06111b;border-color:var(--cyan)}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:35px 0 58px}.card{background:linear-gradient(145deg,#121c2e,#0c1321);border:1px solid var(--line);border-radius:18px;padding:22px}.icon{font-size:22px}.card h2{font-size:16px;margin:14px 0 8px}.card p{font-size:14px;color:var(--muted);line-height:1.6;margin:0}.notice{border:1px solid #e7b75b44;background:#e7b75b0a;border-radius:14px;padding:18px 20px;color:#d7c7a3;font-size:13px;line-height:1.7;margin-bottom:55px}.notice strong{color:#f1d59a}footer{padding:25px 0 38px;border-top:1px solid #ffffff12;color:#8190a8;font-size:12px;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
-@media(max-width:700px){.hero{padding:65px 0 30px}.grid{grid-template-columns:1fr}.card{padding:19px}.hero p{font-size:15px}}
+:root{color-scheme:dark;--bg:#080c16;--panel:#11192a;--panel2:#0d1423;--line:#26334b;--cyan:#50dceb;--muted:#91a0b8;--white:#eef4fc}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 12%,#172b42 0,transparent 46%),var(--bg);color:var(--white);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+main{width:min(860px,92%);margin:auto;min-height:100svh;display:flex;flex-direction:column}
+header{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff12}
+.logo{font-weight:900;letter-spacing:.15em;color:var(--cyan);font-size:17px}
+.status{font-size:11px;letter-spacing:.08em;color:var(--cyan);border:1px solid #50dceb44;border-radius:999px;padding:8px 11px}
+.hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:55px 0 75px}
+.orb{width:68px;height:68px;border:1px solid #50dceb88;border-radius:22px;display:grid;place-items:center;color:var(--cyan);font-size:30px;box-shadow:0 0 55px #50dceb16;margin-bottom:25px;background:#0b1725}
+h1{font-size:clamp(38px,8vw,62px);line-height:1.04;letter-spacing:-.055em;margin:0 0 12px}
+.accent{color:var(--cyan)}
+.subtitle{font-size:14px;color:var(--muted);margin:0 0 30px}
+.search{width:min(680px,100%);display:flex;gap:8px;padding:8px;border:1px solid #35445f;border-radius:18px;background:#0c1321;box-shadow:0 14px 50px #0003}
+.search:focus-within{border-color:#50dcebaa;box-shadow:0 0 0 3px #50dceb13}
+.search input{min-width:0;flex:1;border:0;outline:0;background:transparent;color:var(--white);font:inherit;font-size:15px;padding:11px 10px}
+.search input::placeholder{color:#8290a8}
+.search button{border:0;border-radius:12px;background:var(--cyan);color:#06111b;font-weight:800;padding:0 20px;font-size:14px;cursor:pointer}
+.search button:active{transform:scale(.98)}
+.engine{font-size:12px;color:var(--muted);margin:14px 0 34px}
+.engine strong{color:#dfe8f5;font-weight:650}
+.shortcuts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;width:min(600px,100%)}
+.shortcut{display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none;color:var(--white);padding:17px 8px;border:1px solid #ffffff12;border-radius:16px;background:linear-gradient(145deg,#121c2d,#0c1320);transition:border-color .15s,transform .15s}
+.shortcut:hover{border-color:#50dceb66;transform:translateY(-2px)}
+.glyph{width:39px;height:39px;display:grid;place-items:center;border-radius:13px;background:#1b2a3d;color:var(--cyan);font-weight:850;font-size:17px}
+.shortcut span:last-child{font-size:12px;color:#c4cede}
+footer{border-top:1px solid #ffffff12;padding:20px 0 25px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:#71819a;font-size:11px}
+footer a{color:#8fa2bd;text-decoration:none}
+@media(max-width:520px){header{height:65px}.status{font-size:9px;padding:7px 9px}.hero{justify-content:flex-start;padding:90px 0 60px}.orb{width:60px;height:60px;border-radius:19px}.subtitle{font-size:13px}.search{gap:4px;padding:6px;border-radius:15px}.search input{font-size:14px;padding:10px 8px}.search button{padding:0 14px}.shortcuts{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.shortcut{padding:13px 4px;border-radius:13px}.glyph{width:34px;height:34px}.shortcut span:last-child{font-size:10px}footer{font-size:10px}}
 </style>
 </head>
-<body><main>
-<header class="nav"><div class="logo">◉ NÉVOA</div><span class="pill">PRIVACIDADE POR DESIGN</span></header>
-<section class="hero"><div class="orb">◉</div><h1>Navegue leve.<br><span class="accent">Deixe menos rastros.</span></h1>
-<p>Um navegador experimental para Android, construído com foco em reduzir o armazenamento local da sessão. Sem conta, sem perfil e sem histórico persistente intencional do aplicativo.</p>
-<div class="ctas"><a class="btn primary" href="#recursos">Conhecer o projeto ↗</a><a class="btn" href="https://github.com/VNSANTS/nevoa">Código no GitHub</a></div></section>
-<section id="recursos" class="grid">
-<article class="card"><div class="icon">⌁</div><h2>Sessão efêmera</h2><p>O app limpa histórico, cache e cookies ao encerrar ou limpar a sessão. Armazenamento web persistente fica desativado.</p></article>
-<article class="card"><div class="icon">◇</div><h2>Sem perfil pessoal</h2><p>Não exige cadastro e não possui backend próprio, analytics ou conta de usuário nesta versão.</p></article>
-<article class="card"><div class="icon">↗</div><h2>Projeto aberto</h2><p>Estrutura preparada para GitHub Pages e compilação de APK por GitHub Actions. Audite o código antes de confiar nele.</p></article>
+<body>
+<main>
+<header><div class="logo">◉ NÉVOA</div><span class="status">SESSÃO LEVE</span></header>
+<section class="hero">
+<div class="orb" aria-hidden="true">◉</div>
+<h1>O que vamos<br><span class="accent">encontrar?</span></h1>
+<p class="subtitle">Pesquise na web ou digite um endereço.</p>
+<form class="search" id="searchForm" action="https://search.brave.com/search" method="get">
+<input id="query" name="q" type="text" placeholder="Pesquisar ou digitar endereço..." autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Pesquisar ou digitar endereço" required>
+<button type="submit">Buscar ↗</button>
+</form>
+<p class="engine">Busca com <strong>Brave Search</strong></p>
+<nav class="shortcuts" aria-label="Atalhos">
+<a class="shortcut" href="https://search.brave.com/"><span class="glyph">B</span><span>Brave Search</span></a>
+<a class="shortcut" href="https://www.wikipedia.org/"><span class="glyph">W</span><span>Wikipedia</span></a>
+<a class="shortcut" href="https://www.youtube.com/"><span class="glyph">▶</span><span>YouTube</span></a>
+<a class="shortcut" href="https://github.com/"><span class="glyph">⌘</span><span>GitHub</span></a>
+</nav>
 </section>
-<div class="notice"><strong>Privacidade não é invisibilidade.</strong> O Névoa não promete anonimato absoluto: sites ainda podem ver seu IP e características do navegador; redes, operadoras e serviços podem registrar metadados. O motor usado é o Android System WebView. Não use esta versão como substituto de Tor ou de uma VPN quando precisar deles.</div>
-<footer><span>© Névoa · projeto experimental</span><span>Sem promessa de anonimato absoluto.</span></footer>
-</main></body></html>
+<footer><span>© Névoa</span><a href="https://github.com/VNSANTS/nevoa">Código aberto no GitHub</a></footer>
+</main>
+<script>
+const form=document.getElementById('searchForm');
+const input=document.getElementById('query');
+form.addEventListener('submit',function(event){
+  const value=input.value.trim();
+  if(!value){event.preventDefault();input.focus();return;}
+  const looksLikeUrl=/^(https?:\/\/|[\w-]+\.[a-z]{2,})(\/.*)?$/i.test(value) && !/\s/.test(value);
+  if(looksLikeUrl){
+    event.preventDefault();
+    location.href=/^https?:\/\//i.test(value)?value:'https://'+value;
+  }
+});
+</script>
+</body>
+</html>
