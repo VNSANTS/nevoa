@@ -31,7 +31,7 @@ class MainActivity : Activity() {
         window.navigationBarColor = bg
         buildUi()
         configurePrivateWebView()
-        web.loadUrl("https://duckduckgo.com/")
+        web.loadUrl("https://search.brave.com/")
     }
 
     private fun buildUi() {
@@ -140,7 +140,7 @@ class MainActivity : Activity() {
         val looksLikeUrl = text.contains(".") && !text.contains(" ")
         if (looksLikeUrl && !text.startsWith("http://") && !text.startsWith("https://")) text = "https://$text"
         if (!text.startsWith("http://") && !text.startsWith("https://")) {
-            text = "https://duckduckgo.com/?q=" + java.net.URLEncoder.encode(text, "UTF-8")
+            text = "https://search.brave.com/?q=" + java.net.URLEncoder.encode(text, "UTF-8")
         }
         if (text.startsWith("http://")) {
             Toast.makeText(this, "Use HTTPS para maior segurança.", Toast.LENGTH_SHORT).show()
@@ -155,7 +155,7 @@ class MainActivity : Activity() {
         web.clearFormData()
         CookieManager.getInstance().removeAllCookies { }
         CookieManager.getInstance().flush()
-        web.loadUrl("https://duckduckgo.com/")
+        web.loadUrl("https://search.brave.com/")
         status.text = "SESSÃO LIMPA • nova navegação iniciada"
     }
 
